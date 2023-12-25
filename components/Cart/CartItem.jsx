@@ -40,7 +40,7 @@ const CartItem = ({ cartItem, baseURL, user, setCart}) => {
         }
     }
     
-    
+    const image = `/images/products/${cartItem.product.images[0]}`;
 
   return (
     <div className={`cart-item-card Row JC-SB ${loading ? 'loading' : ''}`} >
@@ -50,7 +50,7 @@ const CartItem = ({ cartItem, baseURL, user, setCart}) => {
             className='cart-item-img'
             width={70}
             height={70}
-            src='/images/products/apple.jpeg'
+            src={image}
              />
              <Checkbox checked={true} className='cart-item-checkbox' onChange={onChange}/>
         </div>
