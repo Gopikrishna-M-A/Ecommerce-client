@@ -42,7 +42,7 @@ const Home = ({ baseURL }) => {
             setCategories(uniqueCategories)
         });
     }, []);
-    console.log(categories);
+    // console.log(categories);
 
   return (
     <div className="home-page page">

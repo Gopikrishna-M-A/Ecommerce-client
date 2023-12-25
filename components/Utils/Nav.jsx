@@ -18,6 +18,9 @@ const Navbar = ({ user, baseURL }) => {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
   const [cartTotalQty, setCartTotalQty] = useState(0);
 
+  console.log(user);
+
+
   // useEffect(() => {
   //   const fetchUserCart = async () => {
   //     if (user) {

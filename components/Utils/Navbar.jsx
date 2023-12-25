@@ -7,7 +7,6 @@ const baseURL = process.env.BASE_URL
 const Navbar = async() => {
   const session = await getServerSession(options)
   const user = session?.user;
-
   return (
     <Nav user={user} baseURL={baseURL} />
   )
