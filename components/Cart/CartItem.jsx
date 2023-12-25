@@ -40,7 +40,7 @@ const CartItem = ({ cartItem, baseURL, user, setCart}) => {
         }
     }
     
-    const image = `/images/products/${cartItem.product.images[0]}`;
+    const image = `/images/products/${cartItem?.product?.images[0]}`;
 
   return (
     <div className={`cart-item-card Row JC-SB ${loading ? 'loading' : ''}`} >
