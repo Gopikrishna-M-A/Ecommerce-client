@@ -36,7 +36,7 @@ const Navbar = ({ user, baseURL }) => {
   //   fetchUserCart();
   // }, [user]);
 
-  const totalQty = user.cart.products.reduce((acc, product) => acc + product.quantity, 0);
+  const totalQty = user?.cart?.products?.reduce((acc, product) => acc + product.quantity, 0);
 
 
 
