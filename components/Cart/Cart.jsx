@@ -5,26 +5,27 @@ import Coupoun from "./Coupoun";
 import Gifting from "./Gifting";
 import PriceDetails from "./PriceDetails";
 import axios from "axios";
+import { useCart } from '../../contexts/cartContext';
 const { Text } = Typography;
 
 
 
 
 const Cart = ({ user, baseURL, setCurrent, setCartTotal }) => {
-  const [cart, setCart] = useState([]);
-
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const response = await axios.get(`${baseURL}/api/cart/${user._id}`);
-        const userCart = response.data;
-        setCart(userCart);
-      } catch (err) {
-        console.log("error");
-      }
-    };
-    fetchCart();
-  }, []);
+  // const [cart, setCart] = useState([]);
+  const { cart } = useCart();
+  // useEffect(() => {
+  //   const fetchCart = async () => {
+  //     try {
+  //       const response = await axios.get(`${baseURL}/api/cart/${user._id}`);
+  //       const userCart = response.data;
+  //       setCart(userCart);
+  //     } catch (err) {
+  //       console.log("error");
+  //     }
+  //   };
+  //   fetchCart();
+  // }, []);
 
   const onChange = (e) => {
     console.log(`checked = ${e.target.checked}`);
@@ -48,14 +49,14 @@ const Cart = ({ user, baseURL, setCurrent, setCartTotal }) => {
         </div>
 
         <div className="cart-items-wrapper">
-          {cart.products && cart.products.length > 0 ? (
-            cart.products.map((cartItem) => (
+          {cart?.products && cart?.products?.length > 0 ? (
+            cart?.products?.map((cartItem) => (
               <CartItem
                 key={cartItem._id}
                 cartItem={cartItem}
                 baseURL={baseURL}
                 user={user}
-                setCart={setCart}
+                // setCart={setCart}
               />
             ))
           ) : (

@@ -10,35 +10,20 @@ import {
   HeartOutlined,
 } from "@ant-design/icons";
 import { Button, Dropdown, Typography, Input, Select, Badge } from "antd";
-import axios from "axios";
+
+import { useCart } from '../../contexts/cartContext';
+
 const { Title, Text } = Typography;
 const { Search } = Input;
 
 const Navbar = ({ user, baseURL }) => {
+  const { cart } = useCart();
+
   const [isNavExpanded, setIsNavExpanded] = useState(false);
-  const [cartTotalQty, setCartTotalQty] = useState(0);
 
-
-
-  // useEffect(() => {
-  //   const fetchUserCart = async () => {
-  //     if (user) {
-  //       try {
-  //         const response = await axios.get(`${baseURL}/api/cart/${user._id}`);
-  //         const userCart = response.data;
-  //         // Calculate the total quantity of items in the cart
-          
-  //         setCartTotalQty(totalQty);
-  //         console.log(totalQty);
-  //       } catch (error) {
-  //         console.error('Error fetching user cart:', error);
-  //       }
-  //     }
-  //   };
-  //   fetchUserCart();
-  // }, [user]);
-
-  const totalQty = user?.cart?.products?.reduce((acc, product) => acc + product.quantity, 0);
+  
+  const totalQty = cart?.products?.reduce((acc, product) => acc + product.quantity, 0);
+  
 
 
 
@@ -132,7 +117,7 @@ const Navbar = ({ user, baseURL }) => {
               <Button type="primary" className="nav-button">Sign in</Button>
             </Link>
           )}
-          <Link href="/settings">
+          <Link href="/profile">
             {user && <img src={user.image} className="nav-logo-img"></img>}
           </Link>
         </div>

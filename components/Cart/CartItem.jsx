@@ -3,41 +3,24 @@ import Image from 'next/image'
 import { Typography, Tag, InputNumber, Checkbox } from 'antd'
 import { CarOutlined, CloseOutlined } from '@ant-design/icons'
 import axios from 'axios';
+import { useCart } from '../../contexts/cartContext';
+
 
 const { Text, Title, Paragraph } = Typography;
 const CartItem = ({ cartItem, baseURL, user, setCart}) => {
-
+    const { updateCart, removeFromCart } = useCart();
+    // const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(false);
+
 
     const onChange = (e) => {
         console.log(`checked = ${e.target.checked}`);
       };
 
-    const onQuantityChange = async(type) => {
-        try{
-            const response = await axios.patch(`${baseURL}/api/cart/${cartItem.product._id}/${user._id}`,{
-                quantity: type === "inc" ? cartItem.quantity + 1 : cartItem.quantity - 1,
-            })
-            const userCart = response.data;
-            setCart(userCart.cart);
-        }catch(err){
-            console.log(err);
-        }
 
-    }
 
     const removeCartItem = async() => {
-        try{
-            setLoading(true);
-            const response = await axios.delete(`${baseURL}/api/cart/${cartItem.product._id}/${user._id}`)
-            const userCart = response.data;
-            setCart(userCart.cart);
-        }catch(err){
-            console.log(err);
-        }
-        finally{
-            setLoading(false);
-        }
+        removeFromCart(cartItem.product._id, user._id);
     }
     
     const image = `/images/products/${cartItem?.product?.images[0]}`;
@@ -86,9 +69,9 @@ const CartItem = ({ cartItem, baseURL, user, setCart}) => {
                 // max={10} 
                 onStep={(value, info) => {
                     if (info.type === 'up') {
-                        onQuantityChange("inc"); // Call your increment function
+                        updateCart(cartItem.product._id, user._id, cartItem.quantity + 1) // Call your increment function
                     } else if (info.type === 'down') {
-                        onQuantityChange("dec"); // Call your decrement function
+                        updateCart(cartItem.product._id, user._id, cartItem.quantity - 1)// Call your decrement function
                     }
                 }}
             />

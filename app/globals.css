@@ -78,6 +78,10 @@ a {
 /* NAVBAR  START */
 
 .nav {
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   width: 100vw;
   display: flex;
   flex-direction: column;

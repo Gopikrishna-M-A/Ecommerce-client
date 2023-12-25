@@ -4,12 +4,16 @@ import { Image, Typography, Rate, Button, Tag, InputNumber, message } from "antd
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import axios from "axios";
+import { useCart } from '../contexts/cartContext';
+
 const { Text, Title } = Typography;
 
 const Products = ({ baseURL, user, productId }) => {
+  const { addToCart } = useCart();
   const [product, setProduct] = useState({});
   const[qty, setQty] = useState(1);
   const [currentImage, setCurrentImage] = useState();
+
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -26,23 +30,13 @@ const Products = ({ baseURL, user, productId }) => {
     setCurrentImage(1)
 
   }, []);
-  console.log(currentImage);
+  // console.log(currentImage);
 
   const handleCart = async() => {
     if (!user) {
       push(`/api/auth/signin?callbackUrl=/products/${category}`);
-    }
-    try {
-      const response = axios.post(`${baseURL}/api/cart/${product._id}/${user._id}`, {
-        quantity: qty,
-      }).then((res) => {
-        user.cart = res.data;
-      })
-      message.success("Added to cart");
-    //   console.log(user.cart);
-
-    }catch(err){
-      console.log(err);
+    }else{
+      addToCart(product._id, user._id, qty);
     }
   }
   const images = {};

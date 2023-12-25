@@ -13,20 +13,22 @@ const openNotification = () => {
 
 
 const PriceDetails = ({ cart, setCurrent, setCartTotal }) => {
-    const [CartItems, setCartItems] = useState(cart.products);
 
-    useEffect(() => {
-        setCartItems(cart.products);
-    }, [cart]);
+    // const [CartItems, setCartItems] = useState(cart?.products);
+
+    // useEffect(() => {
+    //     setCartItems(cart?.products);
+    // }, [cart]);
+
     const calculateTotalPrice = (quantity, price) => quantity * price;
 
-    const priceDetails = CartItems?.map((cartItem) => (
+    const priceDetails = cart?.products?.map((cartItem) => (
         <div key={cartItem.product._id} className="Row JC-SB">
           <Text style={{width:"70%"}} type="secondary">{`${cartItem.quantity} x ${cartItem.product.name}`}</Text>
           <Text>{`₹${calculateTotalPrice(cartItem.quantity, cartItem.product.price).toFixed(2)}`}</Text>
         </div>
       ));
-    const totalAmount = CartItems?.reduce(
+    const totalAmount = cart?.products?.reduce(
         (total, cartItem) => total + calculateTotalPrice(cartItem.quantity, cartItem.product.price),
         0
     );
@@ -48,7 +50,7 @@ const PriceDetails = ({ cart, setCurrent, setCartTotal }) => {
     <div className="Row Vertical">
       <Title level={4}>Price Details</Title>
       <div className="price-detail-card">
-        <Text>{`${CartItems?.length} items`}</Text>
+        <Text>{`${cart?.products?.length} items`}</Text>
         {priceDetails}
         <div className="Row JC-SB">
           <Text type="secondary">Discount</Text>

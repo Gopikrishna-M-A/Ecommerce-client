@@ -4,26 +4,33 @@ import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import axios from "axios";
+
+import { useCart } from '../../contexts/cartContext';
+
 const { Title, Text, Paragraph } = Typography;
 
 const ProductCard = ({ product, user, category, baseURL }) => {
+  const { addToCart } = useCart();
   const { push } = useRouter();
+  
   const handleCart = async() => {
     if (!user) {
       push(`/api/auth/signin?callbackUrl=/products/${category}`);
+    }else{
+      addToCart(product._id, user._id, 1);
     }
-    try {
-      const response = axios.post(`${baseURL}/api/cart/${product._id}/${user._id}`, {
-        quantity: 1,
-      }).then((res) => {
-        user.cart = res.data;
-      })
-      message.success("Added to cart");
-      // console.log(user.cart);
+    // try {
+    //   const response = axios.post(`${baseURL}/api/cart/${product._id}/${user._id}`, {
+    //     quantity: 1,
+    //   }).then((res) => {
+    //     user.cart = res.data;
+    //   })
+    //   message.success("Added to cart");
+    //   // console.log(user.cart);
 
-    }catch(err){
-      console.log(err);
-    }
+    // }catch(err){
+    //   console.log(err);
+    // }
   }
 
   return (
@@ -35,7 +42,7 @@ const ProductCard = ({ product, user, category, baseURL }) => {
       </div>
       <div className="product-name Row JC-SB AI-C">
         <Link href={`/product/${product._id}`}><Title  level={5}>{product.name}</Title></Link>
-        <Text type="secondary">{product.attributes.weight || product.attributes.size}</Text>
+        <Text style={{textWrap:"nowrap"}} type="secondary">{product.attributes.weight || product.attributes.size}</Text>
       </div>
       <div className="Row product-desc">
         <Paragraph>{product.description}</Paragraph>
