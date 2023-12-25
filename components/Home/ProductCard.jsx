@@ -19,19 +19,11 @@ const ProductCard = ({ product, user, category, baseURL }) => {
     }else{
       addToCart(product._id, user._id, 1);
     }
-    // try {
-    //   const response = axios.post(`${baseURL}/api/cart/${product._id}/${user._id}`, {
-    //     quantity: 1,
-    //   }).then((res) => {
-    //     user.cart = res.data;
-    //   })
-    //   message.success("Added to cart");
-    //   // console.log(user.cart);
-
-    // }catch(err){
-    //   console.log(err);
-    // }
   }
+
+  const truncatedDescription = product.description.length > 30
+    ? `${product.description.slice(0, 60)}...`
+    : product.description;
 
   return (
     <div className="product-card Row Vertical">
@@ -45,7 +37,7 @@ const ProductCard = ({ product, user, category, baseURL }) => {
         <Text style={{textWrap:"nowrap"}} type="secondary">{product.attributes.weight || product.attributes.size}</Text>
       </div>
       <div className="Row product-desc">
-        <Paragraph>{product.description}</Paragraph>
+        <Paragraph>{truncatedDescription}</Paragraph>
       </div>
       <div className="Row rating JC-SB">
         <Rate value={3} disabled  />
