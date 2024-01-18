@@ -63,6 +63,9 @@ a {
 .W-100{
   width: 100%;
 }
+.W-70{
+  width: 70%;
+}
 
 
 
@@ -620,4 +623,32 @@ a {
 
 .content{
   margin-top: 200px;
+}
+
+/* ORDERS PAGE  */
+.orders-head{
+
+}
+
+.orders-left-section{
+  width: 60%;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #ececec;
+  margin-top: 30px;
+  padding: 10px 20px;
+}
+.orders-right-section{
+  width: 35%;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #ececec;
+  margin-top: 30px;
+  padding: 10px 20px;
+}
+.orders-map{
+  width: 80px;
+  height: 80px;
+  background-color: #dedede;
+  border-radius: 6px;
 }

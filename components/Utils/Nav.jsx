@@ -6,12 +6,13 @@ import {
   UserOutlined,
   LogoutOutlined,
   SettingOutlined,
+  SmileOutlined,
   ShoppingCartOutlined,
   HeartOutlined,
 } from "@ant-design/icons";
 import { Button, Dropdown, Typography, Input, Select, Badge } from "antd";
 
-import { useCart } from '../../contexts/cartContext';
+import { useCart } from "../../contexts/cartContext";
 
 const { Title, Text } = Typography;
 const { Search } = Input;
@@ -21,11 +22,10 @@ const Navbar = ({ user, baseURL }) => {
 
   const [isNavExpanded, setIsNavExpanded] = useState(false);
 
-  
-  const totalQty = cart?.products?.reduce((acc, product) => acc + product.quantity, 0);
-  
-
-
+  const totalQty = cart?.products?.reduce(
+    (acc, product) => acc + product.quantity,
+    0
+  );
 
   const toggleNav = () => {
     setIsNavExpanded(!isNavExpanded);
@@ -39,23 +39,23 @@ const Navbar = ({ user, baseURL }) => {
     } else if (e.key === "2") {
     }
   };
-  const items = [
-    {
-      label: "Logout",
-      key: "1",
-      icon: <LogoutOutlined />,
-    },
-    {
-      label: "Settings",
-      key: "2",
-      icon: <SettingOutlined />,
-    },
-  ];
+  // const items = [
+  //   {
+  //     label: "Logout",
+  //     key: "1",
+  //     icon: <LogoutOutlined />,
+  //   },
+  //   {
+  //     label: "Settings",
+  //     key: "2",
+  //     icon: <SettingOutlined />,
+  //   },
+  // ];
 
-  const menuProps = {
-    items,
-    onClick: handleMenuClick,
-  };
+  // const menuProps = {
+  //   items,
+  //   onClick: handleMenuClick,
+  // };
 
   const handleChange = (value) => {
     console.log(`selected ${value}`);
@@ -63,6 +63,34 @@ const Navbar = ({ user, baseURL }) => {
   const onSearch = (value, _e, info) => {
     console.log(info?.source, value);
   };
+
+  const items = [
+    {
+      key: '1',
+      label: (
+        <Link href="/profile" rel="noopener noreferrer" >
+          Profile
+        </Link>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <Link href="/orders" rel="noopener noreferrer" >
+          Orders
+        </Link>
+      ),
+    },
+    {
+      key: '3',
+      danger: true,
+      label: (
+        <Link href="/api/auth/signout" rel="noopener noreferrer" >
+         Sign out
+        </Link>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -100,7 +128,7 @@ const Navbar = ({ user, baseURL }) => {
         <div className="nav-button-wrapper">
           <div className="nav-links">
             <Link className="link-item" onClick={closeNav} href="/cart">
-              <Badge  count={totalQty}>
+              <Badge count={totalQty}>
                 <ShoppingCartOutlined />
               </Badge>
             </Link>
@@ -108,18 +136,22 @@ const Navbar = ({ user, baseURL }) => {
               <HeartOutlined />
             </Link>
           </div>
-          {user ? (
-            <Link href="/api/auth/signout">
-              <Button className="nav-button">Sign out</Button>
-            </Link>
-          ) : (
+          {!user && (
             <Link href="/api/auth/signin">
-              <Button type="primary" className="nav-button">Sign in</Button>
+              <Button type="primary" className="nav-button">
+                Sign in
+              </Button>
             </Link>
           )}
-          <Link href="/profile">
-            {user && <img src={user.image} className="nav-logo-img"></img>}
-          </Link>
+          <Dropdown
+            menu={{
+              items,
+            }}
+          >
+            <Link href="/profile">
+              {user && <img src={user.image} className="nav-logo-img"></img>}
+            </Link>
+          </Dropdown>
         </div>
       </nav>
     </>
@@ -127,4 +159,3 @@ const Navbar = ({ user, baseURL }) => {
 };
 
 export default Navbar;
-

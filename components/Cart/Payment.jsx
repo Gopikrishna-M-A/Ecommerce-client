@@ -3,9 +3,10 @@ import axios from "axios";
 import { Button, Empty, Spin, notification } from "antd";
 import Bill from "./Bill";
 import Confetti from 'react-confetti'
+import { useCart } from '../../contexts/cartContext';
 
 const SupermarketBill = ({ baseURL, razorpayKEY, user, cartTotal }) => {
-  const [cart, setCart] = useState([]);
+  const { cart } = useCart();
   const [tableData, setTableData] = useState([]);
   const [total, setTotal] = useState(0);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
@@ -22,6 +23,16 @@ const SupermarketBill = ({ baseURL, razorpayKEY, user, cartTotal }) => {
     });
   };
 
+  function transformArray(originalArray) {
+    return originalArray.map(item => {
+      return {
+        product: item.product._id, // Assuming product._id is the ID of the product
+        quantity: item.quantity,
+        price: item.product.price,
+      };
+    });
+  }
+
 
 
 
@@ -32,18 +43,7 @@ const SupermarketBill = ({ baseURL, razorpayKEY, user, cartTotal }) => {
     }
   }, []);
 
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const response = await axios.get(`${baseURL}/api/cart/${user._id}`);
-        const userCart = response.data;
-        setCart(userCart);
-      } catch (err) {
-        console.log("error");
-      }
-    };
-    fetchCart();
-  }, []);
+
 
   useEffect(() => {
     // Calculate and set table data based on the cart
@@ -107,18 +107,22 @@ const SupermarketBill = ({ baseURL, razorpayKEY, user, cartTotal }) => {
         // alert(response.razorpay_order_id);
         // alert(response.razorpay_signature); 
         try{
+          const products = transformArray(cart.products);
           const res  = axios.post(`${baseURL}/api/orders/verify`, {
             total: amount*100,
             razorpay_payment_id: response.razorpay_payment_id,
             razorpay_order_id: response.razorpay_order_id,
             razorpay_signature: response.razorpay_signature,
+            customer: user._id,
+            products: products,
+            shippingAddress: user.address,
+
           }).then(res => {
             if(res.status === 200){
               setPaymentSuccess(true);
               openNotification()
             }
           })
-       
 
         }catch(err){
           console.log("error",err);
@@ -136,11 +140,12 @@ const SupermarketBill = ({ baseURL, razorpayKEY, user, cartTotal }) => {
     paymentObject.open();
   };
 
+  console.log(user.address);
   return (
     <div>
       {paymentSuccess ? (
         <>
-          <Confetti width={windowDimensions.width} height={windowDimensions.height}/>
+          <Confetti recycle={false} width={windowDimensions.width} height={windowDimensions.height}/>
           <Bill user={user} orderID={orderID} tableData={tableData} total={total} cartTotal={cartTotal}/>
         </>
       ) : (
