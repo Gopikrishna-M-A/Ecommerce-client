@@ -23,7 +23,7 @@ const PriceDetails = ({ cart, setCurrent, setCartTotal }) => {
     const calculateTotalPrice = (quantity, price) => quantity * price;
 
     const priceDetails = cart?.products?.map((cartItem) => (
-        <div key={cartItem.product._id} className="Row JC-SB">
+        <div key={cartItem.product._id} className="flex justify-between">
           <Text style={{width:"70%"}} type="secondary">{`${cartItem.quantity} x ${cartItem.product.name}`}</Text>
           <Text>{`₹${calculateTotalPrice(cartItem.quantity, cartItem.product.price).toFixed(2)}`}</Text>
         </div>

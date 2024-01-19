@@ -52,7 +52,7 @@ const Cart = ({ user, baseURL, setCurrent, setCartTotal }) => {
           )}
         </div>
       </div>
-      <div className="flex flex-col gap-5 w-1/4">
+      <div className="flex flex-col gap-5 w-[350px]">
         {/* <Coupoun /> */}
         {/* <Gifting /> */}
         <PriceDetails cart={cart} setCurrent={setCurrent} setCartTotal={setCartTotal}/>
