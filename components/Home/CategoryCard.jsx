@@ -4,18 +4,18 @@ import Link from "next/link";
 const { Text } = Typography;
 
 const CategoryCard = ({ category }) => {
-  const img ='/images/Categories/fruirtsandveg.png'
+  const img = "/images/Categories/fruirtsandveg.png";
   return (
     <Link href={`/products/${category._id}`}>
-      <div className="category-card">
-        <div className="category-img">
+      <div className="border border-solid border-gray-300 rounded-md flex flex-col items-center justify-between p-5 h-44 min-w-40 cursor-pointer transition-all  ease-in-out hover:-translate-y-2 ">
+        <div className="w-24">
           {img ? (
             <img src={img} alt="category" />
           ) : (
-            <Skeleton.Image active={true} className="skt" />
+            <Skeleton.Image active={true} />
           )}
         </div>
-        <div className="category-name">
+        <div className="text-center w-9/12">
           <Text>{category.name}</Text>
         </div>
       </div>

@@ -37,11 +37,11 @@ const page = ({ user, baseURL, razorpayKEY }) => {
   };
 
   return (
-    <div className="page Cart-page">
-      <Steps className="cart-page-steps" current={current} items={items} onChange={onChange} />
+    <div className=" py-12 px-24">
+      <Steps className="w-1/2 my-2.5 mx-auto" current={current} items={items} onChange={onChange} />
 
       <div>
-        <div className="steps-content">{steps[current].content}</div>
+        <div className=" mt-10 ">{steps[current].content}</div>
       </div>
     </div>
   );

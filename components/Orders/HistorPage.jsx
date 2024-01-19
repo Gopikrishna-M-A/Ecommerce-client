@@ -108,30 +108,37 @@ const page = ({ user, baseURL }) => {
 
 
   return (
-  <div className="page orders-page">
-    <div className="orders-head">
-      <div className="Row JC-SB">
-        <div className="Row AI-C">
-          <Title level={3} className="order-title">
+  <div className="px-10 py-2.5 ">
+    <div className="">
+      <div className="flex justify-between">
+        <div className="flex gap-1 items-center">
+          <Title level={3} >
             Your Orders
           </Title>
           <Paragraph type="secondary">({totalOrders})</Paragraph>
         </div>
-        <div className="head-btns Row ">
+        <div className="flex">
           <Button icon={<QuestionCircleOutlined />}>Need Help?</Button>
         </div>
       </div>
+      <Breadcrumb
+          items={[
+          {
+              title: <Link href="/orders">History</Link>,
+            },
+          ]}
+        />
     </div>
 
-      <div className="Row JC-SB">
-      <div className="orders-left-section">
+      <div className="flex justify-between">
+      <div className=" w-3/5 bg-white rounded-md border mt-8 py-2.5 px-5 ">
         {orders.map((order,index) => (
             <div  key={order._id}>
-            <div className="left-head Row JC-SB AI-C">
-              <div className="Row Vertical W-70">
+            <div className="flex justify-between items-center">
+              <div className="flex flex-col w-4/6">
                 <Link href={`/orders/${order._id}`}><Title level={4}>Order #{order?.orderNumber} </Title></Link>
-                <div className="Row JC-SB">
-                  <div className="Row Vertical gap-5">
+                <div className="flex justify-between">
+                  <div className="flex flex-col gap-1">
                     <Paragraph type="secondary">Order</Paragraph>
                     <Paragraph type="success">
                       &#10003;{" "}
@@ -140,15 +147,15 @@ const page = ({ user, baseURL }) => {
                         : "unpaid"}
                     </Paragraph>
                   </div>
-                  <div className="Row Vertical gap-5">
+                  <div className="flex flex-col gap-1">
                     <Paragraph type="secondary">Amount</Paragraph>
                     <Text strong>&#8377; {order?.totalAmount}</Text>
                   </div>
-                  <div className="Row Vertical gap-5">
+                  <div className="flex flex-col gap-1">
                     <Paragraph type="secondary">Estimated Delivery</Paragraph>
                     <Paragraph>{convertDateFormat(order.orderDate)}</Paragraph>
                   </div>
-                  <div className="Row Vertical">
+                  <div className="flex flex-col">
                     <Button type="primary" size="small">
                       {order?.orderStatus &&
                         order.orderStatus[order.phase].status}
@@ -160,7 +167,7 @@ const page = ({ user, baseURL }) => {
             </div>
 
             <Steps
-              style={{ marginTop: "30px", marginBottom: "20px" }}
+              className="mt-8 mb-5"
               current={order.phase}
               items={[
                 {
@@ -190,7 +197,7 @@ const page = ({ user, baseURL }) => {
         ))}
         </div>
 
-        <div className="orders-right-section">
+        <div className=" w-1/3 bg-white rounded-md border mt-8 py-2.5 px-5">
 
         </div>
 

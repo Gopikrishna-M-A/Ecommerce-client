@@ -4,7 +4,7 @@ import { Image, Typography, Rate, Button, Tag, InputNumber, message } from "antd
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import axios from "axios";
-import { useCart } from '../contexts/cartContext';
+import { useCart } from '../../contexts/cartContext';
 
 const { Text, Title } = Typography;
 
@@ -45,24 +45,22 @@ const Products = ({ baseURL, user, productId }) => {
     images[`image${i + 1}`] = `/images/Products/${product.images[i]}`;
   }
   return (
-    <div className="page product-detail Row ">
-      <div className="section Row">
-        <div className="product-detail-left Row Vertical">
-          <div className="Row">
+    <div className="px-10 py-2.5 flex gap-1 ">
+      <div className="w-full my-2.5 flex gap-1">
+        <div className=" w-2/5 p-12 border-r flex-col">
+          <div className="flex">
             <div>
-              
               <Image
-                className="product-img-focused"
                 preview={false}
                 src={images[`image${currentImage}`]}
-                width={500}
-                height={500}
+                width={400}
+                height={400}
               />
             </div>
-            <div className="Row Vertical JC-C">
+            <div className="flex-col">
             {images.image1 && (
               <Image
-                className="product-img-options"
+                className="border rounded p-1"
                 preview={false}
                 width={50}
                 src={images.image1}
@@ -71,7 +69,7 @@ const Products = ({ baseURL, user, productId }) => {
             )}
             {images.image2 && (
               <Image
-                className="product-img-options"
+                className="border rounded p-1"
                 preview={false}
                 width={50}
                 src={images.image2}
@@ -81,7 +79,7 @@ const Products = ({ baseURL, user, productId }) => {
 
             {images.image3 && (
               <Image
-                className="product-img-options"
+                className="border rounded p-1"
                 preview={false}
                 width={50}
                 src={images.image3}
@@ -92,7 +90,7 @@ const Products = ({ baseURL, user, productId }) => {
 
             {images.image4 && (
               <Image
-                className="product-img-options"
+                className="border rounded p-1"
                 preview={false}
                 width={50}
                 src={images.image4}
@@ -100,32 +98,26 @@ const Products = ({ baseURL, user, productId }) => {
 
               />
             )}
-              {/* <Image
-                className="product-img-options"
-                preview={false}
-                width={50}
-                src="/images/Products/apple.png"
-              /> */}
             </div>
           </div>
         </div>
 
-        <div className="product-detail-right Row Vertical JC-SB">
-          <div className="Row Vertical">
-            <div className="Row product-name">
+        <div className=" w-2/5 flex-col justify-between flex gap-5 ml-12">
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-2">
               <Title level={1}>{product.name}</Title>
             </div>
-            <div className="Row product-desc">
+            <div className="flex gap-2">
               <Text>{product.description}</Text>
             </div>
-            <div className="Row product-desc">
+            <div className="flex gap-2">
             {Object.entries(product?.attributes || {}).map(([key, value]) => (
                 <Tag key={key} bordered={false} >
                     {`${value}`}
                 </Tag>
                 ))}
             </div>
-            <div className="Row product-price AI-C">
+            <div className="flex items-center gap-2">
               <Title level={2}>₹{product.price}</Title>
               <Text type="secondary" delete>
                 ₹{(product.price * 1.1).toFixed(2)}
@@ -134,7 +126,7 @@ const Products = ({ baseURL, user, productId }) => {
                 10% OFF
               </Tag>
             </div>
-            <div className="Row product-qty AI-C">
+            <div className="flex items-center gap-2">
               <Text>Quantity</Text>
               <InputNumber
               
@@ -145,11 +137,11 @@ const Products = ({ baseURL, user, productId }) => {
                 max={10}
               />
             </div>
-            <div className="Row product-rating">
+            <div className="flex">
               <Rate value={3} disabled />
               <Text>441 reviews </Text>
             </div>
-            <div className="Row product-action-btn-wrapper">
+            <div className="flex gap-2">
                 <Button size="large" onClick={handleCart}>Add to Cart</Button>
               <Link href={"/cart"}>
               <Button size="large" type="primary" onClick={handleCart}>
@@ -159,31 +151,31 @@ const Products = ({ baseURL, user, productId }) => {
 
             </div>
           </div>
-          <div className="Row Vertical">
-            <div className="Row JC-SB W-100">
+          <div className="flex flex-col">
+            <div className="flex justify-between w-full gap-2">
               <Text type="secondary">Recently viewed</Text>
-              <div className="Row gap-5 AI-FS">
+              <div className="flex items-start gap-2">
                 <Button shape="circle" icon={<LeftOutlined />}></Button>
                 <Button shape="circle" icon={<RightOutlined />}></Button>
               </div>
             </div>
-            <div className="Row gap-20">
+            <div className="flex gap-5">
               <Image
-                className="product-img-recent"
+                className="border rounded p-2.5 object-contain"
                 preview={false}
                 height={100}
                 width={120}
                 src="/images/Products/orange.jpeg"
               />
               <Image
-                className="product-img-recent"
+                className="border rounded p-2.5 object-contain"
                 preview={false}
                 height={100}
                 width={120}
                 src="/images/Products/kiwi.jpeg"
               />
               <Image
-                className="product-img-recent"
+                className="border rounded p-2.5 object-contain"
                 preview={false}
                 height={100}
                 width={120}

@@ -5,7 +5,7 @@ import {
   SortAscendingOutlined,
 } from "@ant-design/icons";
 import { Typography, Menu, Slider, Select } from "antd";
-import ProductCard from "./Home/ProductCard";
+import ProductCard from "./ProductCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 const { Title, Text } = Typography;
@@ -90,10 +90,10 @@ const ProductCategory = ({ params, baseURL, user }) => {
       null,
       [
         getItem(
-          <div className="filter-input">
-            <Text className="filter-text">Price Range</Text>
+          <div className="flex justify-between items-center p-3">
+            <Text className=" w-2/5">Price Range</Text>
             <Slider
-                    className="filter-input-type"
+                    className=" w-3/5"
                     range
                     defaultValue={[minPrice, maxPrice]}
                     max={100}
@@ -104,10 +104,10 @@ const ProductCategory = ({ params, baseURL, user }) => {
           "6"
         ),
         getItem(
-          <div className="filter-input">
-            <Text className="filter-text">Rating</Text>
+          <div className="flex justify-between items-center p-3">
+            <Text className="w-2/5">Rating</Text>
             <Slider
-              className="filter-input-type"
+              className="w-3/5"
               defaultValue={3}
               max={5}
             />
@@ -115,9 +115,9 @@ const ProductCategory = ({ params, baseURL, user }) => {
           "7"
         ),
         getItem(
-          <div className="filter-input">
-            <Text className="filter-text">Discount</Text>
-            <Slider className="filter-input-type" range defaultValue={[0, 100]} max={100} />
+          <div className="flex justify-between items-center p-3">
+            <Text className="w-2/5">Discount</Text>
+            <Slider className="w-3/5" range defaultValue={[0, 100]} max={100} />
           </div>,
           "8"
         ),
@@ -133,8 +133,8 @@ const ProductCategory = ({ params, baseURL, user }) => {
   ];
 
   return (
-    <div className="page products Row ">
-      <div className="products-left">
+    <div className="px-10 py-2.5 pl-0 pt-0 overflow-hidden flex h-[calc(100vh-73px)]">
+      <div className=" w-1/4 h-screen overflow-y-auto border-r ">
         {/* <Title level={5}>Products</Title> */}
         <Menu
             onClick={({ key }) => {
@@ -148,13 +148,13 @@ const ProductCategory = ({ params, baseURL, user }) => {
           items={items}
         />
       </div>
-      <div className="products-right Row Vertical">
-        <div className="Row JC-SB">
+      <div className=" w-3/4 h-screen overflow-y-auto px-5 py-2 pr-0 no-scrollbar pb-24 flex-col ">
+        <div className="flex justify-between mb-4">
           <Title level={4}>{categoryProducts[0]?.category?.name}</Title>
-          <div className="Row">
+          <div className="flex gap-1">
             <SortAscendingOutlined />
             <Select
-              placeholder="sorrt"
+              placeholder="sort"
               style={{ width: 120 }}
               onChange={handleChange}
               options={[
@@ -166,7 +166,7 @@ const ProductCategory = ({ params, baseURL, user }) => {
             />
           </div>
         </div>
-        <div className="Row products-list">
+        <div className="flex flex-wrap gap-5">
             { categoryProducts.map(product => <ProductCard key={product._id} baseURL={baseURL} category={category} user={user} product={product} />) }
         </div>
       </div>

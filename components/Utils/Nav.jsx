@@ -2,11 +2,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  MenuOutlined,
-  UserOutlined,
-  LogoutOutlined,
-  SettingOutlined,
-  SmileOutlined,
   ShoppingCartOutlined,
   HeartOutlined,
 } from "@ant-design/icons";
@@ -94,8 +89,8 @@ const Navbar = ({ user, baseURL }) => {
 
   return (
     <>
-      <nav className={`nav`}>
-        <Link className="nav__brand" href="/">
+      <nav className="sticky top-0 z-50 w-screen flex items-center justify-between p-5 border-b bg-white">
+        <Link className="font-bold text-2xl" href="/">
           <Title level={3}>Mart</Title>
         </Link>
 
@@ -125,8 +120,8 @@ const Navbar = ({ user, baseURL }) => {
           onSearch={onSearch}
         />
 
-        <div className="nav-button-wrapper">
-          <div className="nav-links">
+        <div className="flex items-center gap-4">
+          <div className=" flex gap-8 mr-3">
             <Link className="link-item" onClick={closeNav} href="/cart">
               <Badge count={totalQty}>
                 <ShoppingCartOutlined />
@@ -138,7 +133,7 @@ const Navbar = ({ user, baseURL }) => {
           </div>
           {!user && (
             <Link href="/api/auth/signin">
-              <Button type="primary" className="nav-button">
+              <Button >
                 Sign in
               </Button>
             </Link>
@@ -148,8 +143,8 @@ const Navbar = ({ user, baseURL }) => {
               items,
             }}
           >
-            <Link href="/profile">
-              {user && <img src={user.image} className="nav-logo-img"></img>}
+            <Link href="/">
+              {user && <img src={user.image} className=" w-9 h-9 rounded-full"></img>}
             </Link>
           </Dropdown>
         </div>

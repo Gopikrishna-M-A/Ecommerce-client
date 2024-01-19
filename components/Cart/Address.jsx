@@ -60,7 +60,7 @@ const Address = ({ user, baseURL, setCurrent }) => {
 
 
   return (
-    <div className="address-section">
+    <div className=" w-[600px] m-auto">
       <Title level={3}>How would you like to get your order?</Title>
       <Form
         initialValues={initialValues}

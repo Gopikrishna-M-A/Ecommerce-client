@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductListing from '../../../components/ProductListing'
+import ProductListing from '../../../components/Home/ProductListing'
 import { getServerSession } from 'next-auth/next';
 import { options } from '../../api/auth/[...nextauth]/options';
 const baseURL = process.env.BASE_URL 

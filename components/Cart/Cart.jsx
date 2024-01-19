@@ -12,46 +12,34 @@ const { Text } = Typography;
 
 
 const Cart = ({ user, baseURL, setCurrent, setCartTotal }) => {
-  // const [cart, setCart] = useState([]);
   const { cart } = useCart();
-  // useEffect(() => {
-  //   const fetchCart = async () => {
-  //     try {
-  //       const response = await axios.get(`${baseURL}/api/cart/${user._id}`);
-  //       const userCart = response.data;
-  //       setCart(userCart);
-  //     } catch (err) {
-  //       console.log("error");
-  //     }
-  //   };
-  //   fetchCart();
-  // }, []);
 
   const onChange = (e) => {
     console.log(`checked = ${e.target.checked}`);
   };
 
   return (
-    <div className="section Row gap-50 JC-C">
-      <div className="cart-left">
-        <div className="Row cart-item-options JC-SB">
-          <div className="selected Row">
+    <div className=" my-2.5 flex gap-12 justify-center">
+      <div className="w-1/2 flex flex-col gap-2">
+        <div className="flex mb-2.4 justify-between ">
+          <div className="flex gap-2">
             <Checkbox checked onChange={onChange} />
             <Text>
               {cart?.products?.length}/{cart?.products?.length} items selected
             </Text>
           </div>
 
-          <div className="options Row">
+          <div className="flex gap-2">
             <Text>Move to wishlist</Text>
             <Text type="secondary">Remove</Text>
           </div>
         </div>
 
-        <div className="cart-items-wrapper">
+        <div className="border rounded-md px-5 py-1 ">
           {cart?.products && cart?.products?.length > 0 ? (
-            cart?.products?.map((cartItem) => (
+            cart?.products?.map((cartItem,index) => (
               <CartItem
+                index={index == cart?.products?.length - 1 ? true : false} 
                 key={cartItem._id}
                 cartItem={cartItem}
                 baseURL={baseURL}
@@ -64,7 +52,7 @@ const Cart = ({ user, baseURL, setCurrent, setCartTotal }) => {
           )}
         </div>
       </div>
-      <div className="cart-right Row Vertical gap-20">
+      <div className="flex flex-col gap-5 w-1/4">
         {/* <Coupoun /> */}
         {/* <Gifting /> */}
         <PriceDetails cart={cart} setCurrent={setCurrent} setCartTotal={setCartTotal}/>

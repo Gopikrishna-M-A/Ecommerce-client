@@ -9,7 +9,7 @@ import { useCart } from '../../contexts/cartContext';
 
 const { Title, Text, Paragraph } = Typography;
 
-const ProductCard = ({ product, user, category, baseURL }) => {
+const WishlistCard = ({ product }) => {
   const { addToCart } = useCart();
   const { push } = useRouter();
   
@@ -59,4 +59,4 @@ const ProductCard = ({ product, user, category, baseURL }) => {
   );
 };
 
-export default ProductCard;
+export default WishlistCard;

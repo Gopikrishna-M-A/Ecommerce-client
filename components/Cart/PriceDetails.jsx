@@ -47,21 +47,21 @@ const PriceDetails = ({ cart, setCurrent, setCartTotal }) => {
     }
 
   return (
-    <div className="Row Vertical">
+    <div className="flex flex-col gap-2">
       <Title level={4}>Price Details</Title>
-      <div className="price-detail-card">
+      <div className=" bg-gray-100 py-5 px-2.5 flex flex-col gap-1 rounded-md">
         <Text>{`${cart?.products?.length} items`}</Text>
         {priceDetails}
-        <div className="Row JC-SB">
+        <div className="flex justify-between">
           <Text type="secondary">Discount</Text>
           <Text type="success">{`-₹${couponDiscount}`}</Text>
         </div>
-        <div className="Row JC-SB">
+        <div className="flex justify-between">
           <Text type="secondary">Delivery Charges</Text>
           <Text>{deliveryCharges === 0 ? 'Free Delivery' : `₹${deliveryCharges}`}</Text>
         </div>
         <Divider style={{ margin: 5 }} />
-        <div className="Row JC-SB">
+        <div className="flex justify-between">
           <Title level={5}>Total Amount</Title>
           <Title level={5}>{`₹${(totalAmount - couponDiscount).toFixed(2)}`}</Title>
         </div>

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { List, Button, Card, Modal, Space, Typography } from "antd";
 import { DeleteOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import WishlistCard from "../../components/Wishlist/WishlistCard";
 
 const { confirm } = Modal;
 const { Text, Title, Paragraph } = Typography;
@@ -9,66 +10,19 @@ const { Text, Title, Paragraph } = Typography;
 const Wishlist = () => {
   const [wishlistItems, setWishlistItems] = useState([
     {
-      id: 1,
-      name: "Product 1",
-      price: 20.0,
-      image: "/images/products/apple.jpeg",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 25.0,
-      image: "/images/products/apple.jpeg",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 25.0,
-      image: "/images/products/apple.jpeg",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 25.0,
-      image: "/images/products/apple.jpeg",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 25.0,
-      image: "/images/products/apple.jpeg",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 25.0,
-      image: "/images/products/apple.jpeg",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 25.0,
-      image: "/images/products/apple.jpeg",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 25.0,
-      image: "/images/products/apple.jpeg",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 25.0,
-      image: "/images/products/apple.jpeg",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 25.0,
-      image: "/images/products/apple.jpeg",
-    },
-    // Add more wishlist items as needed
+      name: "Fake Product",
+      description: "This is a fake product description.",
+      price: 29.99,
+      images: [
+        "apple.jpeg"
+      ],
+      category: "60a9c8658b368f4a3c235872", 
+      attributes: {
+        color: "Red",
+        size: "Medium"
+      },
+      isFeatured: true
+    }
   ]);
 
   const handleRemoveItem = (itemId) => {
@@ -89,39 +43,11 @@ const Wishlist = () => {
   };
 
   return (
-    <div className="wishlist section">
-      <Title level={2}>Wishlist</Title>
-      <div className="wishlist-card-wrapper">
+    <div className="px-5 py-5">
+      <Title level={3}>Wishlist</Title>
+      <div className="flex flex-wrap gap-5 mt-5">
         {wishlistItems.map((item) => (
-          <Card
-            key={item.id}
-            title={item.name}
-            cover={
-              <img
-                alt={item.name}
-                src={item.image}
-                style={{ height: 100, objectFit: "contain", padding: 5 }}
-              />
-            }
-            actions={[
-              <Button
-                key="remove"
-                icon={<DeleteOutlined />}
-                type="link"
-                onClick={() => handleRemoveItem(item.id)}
-                danger
-              />,
-              <Button
-                key="addToCart"
-                icon={<ShoppingCartOutlined />}
-                type="link"
-                onClick={() => handleAddToCart(item.id)}
-              />,
-            ]}
-            style={{ width: 230 }} // Adjust the width as needed
-          >
-            <Paragraph style={{ fontSize: 14 }}>Price: ${item.price}</Paragraph>
-          </Card>
+          <WishlistCard product={item} handleRemoveItem={handleRemoveItem} handleAddToCart={handleAddToCart} />
         ))}
       </div>
     </div>
